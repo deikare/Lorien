@@ -10,6 +10,8 @@ signal redo_action
 signal toggle_brush_color_picker
 signal brush_size_changed(size: float)
 signal tool_changed(t: Types.Tool)
+signal page_up
+signal page_down
 
 # -------------------------------------------------------------------------------------------------
 const BUTTON_HOVER_COLOR = Color("50ffd6")
@@ -18,6 +20,7 @@ const BUTTON_NORMAL_COLOR = Color.WHITE
 
 # -------------------------------------------------------------------------------------------------
 @export var file_dialog_path: NodePath
+@export var camera_path: NodePath
 
 @onready var _new_button: FlatTextureButton = $Console/Left/NewFileButton
 @onready var _save_button: FlatTextureButton = $Console/Left/SaveFileButton
@@ -33,9 +36,10 @@ const BUTTON_NORMAL_COLOR = Color.WHITE
 @onready var _tool_btn_line: FlatTextureButton = $Console/Left/LineToolButton
 @onready var _tool_btn_eraser: FlatTextureButton = $Console/Left/EraserToolButton
 @onready var _tool_btn_selection: FlatTextureButton = $Console/Left/SelectionToolButton
+@onready var _page_up_button: FlatTextureButton = $Console/Right/PageUpButton
+@onready var _page_down_button: FlatTextureButton = $Console/Right/PageDownButton
 
 var _last_active_tool_button: FlatTextureButton
-
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
 	# Set inintial values
@@ -65,7 +69,9 @@ func _ready() -> void:
 	_tool_btn_line.pressed.connect(_on_line_tool_pressed)
 	_tool_btn_eraser.pressed.connect(_on_eraser_tool_pressed)
 	_tool_btn_selection.pressed.connect(_on_select_tool_pressed)
-	
+	_page_up_button.pressed.connect(func() -> void: _on_page_up_or_down_pressed(true))
+	_page_down_button.pressed.connect(func() -> void: _on_page_up_or_down_pressed(false))
+
 # -------------------------------------------------------------------------------------------------
 func enable_tool(tool_type: Types.Tool) -> void:
 	var btn: TextureButton
@@ -112,6 +118,8 @@ func _on_keybinding_changed(action: KeybindingsManager.Action) -> void:
 		"shortcut_line_tool": _tool_btn_line.tooltip_text = fmt % [tr("TOOLBAR_TOOLTIP_LINE_TOOL"), label]
 		"shortcut_eraser_tool": _tool_btn_eraser.tooltip_text = fmt % [tr("TOOLBAR_TOOLTIP_ERASER_TOOL"), label]
 		"shortcut_select_tool": _tool_btn_selection.tooltip_text = fmt % [tr("TOOLBAR_TOOLTIP_SELECT_TOOL"), label]
+		"shortcut_page_up": _page_up_button.tooltip_text = fmt % [tr("TOOLBAR_TOOLTIP_PAGE_UP"), label]
+		"shortcut_page_down": _page_down_button.tooltip_text = fmt % [tr("TOOLBAR_TOOLTIP_PAGE_DOWN"), label]
 
 # -------------------------------------------------------------------------------------------------
 func _on_open_project_pressed() -> void:
@@ -204,3 +212,11 @@ func _update_undo_redo_buttons() -> void:
 	
 	_undo_button.set_is_disabled(!active_project.undo_redo.has_undo())
 	_redo_button.set_is_disabled(!active_project.undo_redo.has_redo())
+
+func _on_page_up_or_down_pressed(up:bool) -> void:
+	var _camera = get_node(camera_path) as PanZoomCamera
+	if _camera:
+		if up:
+			_camera.page_up()
+		else:
+			_camera.page_down()

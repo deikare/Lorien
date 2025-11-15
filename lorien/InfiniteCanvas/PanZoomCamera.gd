@@ -1,3 +1,4 @@
+class_name PanZoomCamera
 extends Camera2D
 
 # -------------------------------------------------------------------------------------------------
@@ -86,7 +87,14 @@ func _input(event):
 
 # -------------------------------------------------------------------------------------------------
 func tool_event(event: InputEvent) -> void:
-	if _is_input_enabled:
+	if event is InputEventKey and event.pressed:
+		if Input.is_action_pressed("shortcut_canvas_page_down"):
+			page_down()
+			get_viewport().set_input_as_handled()
+		elif Input.is_action_pressed("shortcut_canvas_page_up"):
+			page_up()
+			get_viewport().set_input_as_handled()		
+	elif _is_input_enabled:
 		if event is InputEventKey:
 			if Utils.is_action_pressed("canvas_pan_key", event):
 				_pan_active = true
@@ -179,3 +187,20 @@ func xform(pos: Vector2) -> Vector2:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_MOUSE_EXIT:
 		_pan_active = false
+
+func page_down() -> void:
+	_move_by_page(false)
+
+func page_up() -> void:
+	_move_by_page(true)
+	
+
+func _move_by_page(up: bool) -> void:
+	var vp_size := get_viewport().get_visible_rect().size
+	var world_delta := vp_size.y * (1.0 / _current_zoom_level)
+	if up:
+		offset.y -= world_delta
+	else:
+		offset.y += world_delta
+	
+	position_changed.emit(offset)

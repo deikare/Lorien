@@ -228,3 +228,27 @@ alignment = 2
 
 [node name="KeepMe" type="Control" parent="Console/Right"]
 layout_mode = 2
+
+[node name="PageUpButton" type="TextureButton" parent="Console/Right"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "TOOLBAR_TOOLTIP_PAGE_UP"
+texture_normal = ExtResource("7")
+script = ExtResource("13")
+hover_tint = Color(0.662745, 0.945098, 0.87451, 1)
+pressed_tint = Color(0.572549, 1, 0.894118, 1)
+
+[node name="PageDownButton" type="TextureButton" parent="Console/Right"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "TOOLBAR_TOOLTIP_PAGE_DOWN"
+texture_normal = ExtResource("6")
+script = ExtResource("13")
+hover_tint = Color(0.662745, 0.945098, 0.87451, 1)
+pressed_tint = Color(0.572549, 1, 0.894118, 1)
+
+[node name="VSeparator" type="VSeparator" parent="Console/Right"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("2")

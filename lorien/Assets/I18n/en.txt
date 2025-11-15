@@ -37,7 +37,8 @@ TOOLBAR_TOOLTIP_BRUSH_COLOR     Brush Color
 TOOLBAR_TOOLTIP_BRUSH_SIZE      Brush Size
 TOOLBAR_TOOLTIP_CANVAS_COLOR    Canvas Color
 TOOLBAR_FULLSCREEN_TOGGLE       Toggle fullscreen
-
+TOOLBAR_TOOLTIP_PAGE_UP         Page Up
+TOOLBAR_TOOLTIP_PAGE_DOWN       Page Down
 # -----------------------------------------------------------------------------
 # Color Palette Picker
 # -----------------------------------------------------------------------------
