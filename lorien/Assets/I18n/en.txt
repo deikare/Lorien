@@ -165,6 +165,8 @@ ACTION_shortcut_select_tool         Selection Tool
 ACTION_shortcut_rectangle_tool      Rectangle Tool
 ACTION_shortcut_circle_tool         Circle Tool
 ACTION_shortcut_export_project      Export File
+TOOLBAR_shortcut_page_up            Page Up
+TOOLBAR_shortcut_page_down          Page Down
 ACTION_deselect_all_strokes         Deselect All Strokes
 ACTION_delete_selected_strokes      Delete Selected Strokes
 ACTION_copy_strokes                 Copy

@@ -88,11 +88,11 @@ func _input(event):
 # -------------------------------------------------------------------------------------------------
 func tool_event(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
-		if Input.is_action_pressed("shortcut_canvas_page_down"):
-			page_down()
-			get_viewport().set_input_as_handled()
-		elif Input.is_action_pressed("shortcut_canvas_page_up"):
+		if Input.is_action_pressed("shortcut_page_down"):
 			page_up()
+			get_viewport().set_input_as_handled()
+		elif Input.is_action_pressed("shortcut_page_up"):
+			page_down()
 			get_viewport().set_input_as_handled()		
 	elif _is_input_enabled:
 		if event is InputEventKey:
