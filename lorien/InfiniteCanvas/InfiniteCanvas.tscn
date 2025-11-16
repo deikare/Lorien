@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c4u5gk5n2aiom"]
+[gd_scene load_steps=19 format=3 uid="uid://c4u5gk5n2aiom"]
 
 [ext_resource type="Script" path="res://InfiniteCanvas/InfiniteCanvas.gd" id="1"]
 [ext_resource type="Script" path="res://InfiniteCanvas/PanZoomCamera.gd" id="2"]
@@ -15,6 +15,10 @@
 [ext_resource type="Script" path="res://InfiniteCanvas/Tools/CircleTool.gd" id="13"]
 [ext_resource type="Script" path="res://InfiniteCanvas/Tools/EraserTool.gd" id="14"]
 [ext_resource type="Script" path="res://InfiniteCanvas/DebugDraw.gd" id="15"]
+[ext_resource type="Script" path="res://InfiniteCanvas/Tools/TextTool.gd" id="16"]
+
+[sub_resource type="SystemFont" id="SystemFont_1ydca"]
+subpixel_positioning = 0
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("10")
@@ -54,6 +58,11 @@ cursor_path = NodePath("../SubViewport/BrushCursor")
 script = ExtResource("7")
 selection_rectangle_path = NodePath("../SubViewport/SelectionRectangle")
 cursor_path = NodePath("../SubViewport/SelectionCursor")
+
+[node name="TextTool" type="Node" parent="."]
+script = ExtResource("16")
+font = SubResource("SystemFont_1ydca")
+cursor_path = NodePath("../SubViewport/BrushCursor")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false

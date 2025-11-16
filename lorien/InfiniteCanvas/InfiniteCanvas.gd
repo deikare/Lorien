@@ -4,7 +4,7 @@ class_name InfiniteCanvas
 # -------------------------------------------------------------------------------------------------
 const BRUSH_STROKE = preload("res://BrushStroke/BrushStroke.tscn")
 const PLAYER = preload("res://Misc/Player/Player.tscn")
-
+const TEXT_TOOL_SCENE = preload("res://InfiniteCanvas/Tools/TextTool.gd")
 # -------------------------------------------------------------------------------------------------
 @onready var _brush_tool: BrushTool = $BrushTool
 @onready var _rectangle_tool: RectangleTool = $RectangleTool
@@ -12,6 +12,7 @@ const PLAYER = preload("res://Misc/Player/Player.tscn")
 @onready var _circle_tool: CircleTool = $CircleTool
 @onready var _eraser_tool: EraserTool = $EraserTool
 @onready var _selection_tool: SelectionTool = $SelectionTool
+@onready var _text_tool: TextTool = $TextTool
 @onready var _active_tool: CanvasTool = _brush_tool
 @onready var _active_tool_type: int = Types.Tool.BRUSH
 @onready var _strokes_parent: Node2D = $SubViewport/Strokes
@@ -132,6 +133,9 @@ func use_tool(tool_type: int) -> void:
 			_use_optimizer = false
 		Types.Tool.SELECT:
 			_active_tool = _selection_tool
+			_use_optimizer = false
+		Types.Tool.TEXT:
+			_active_tool = _text_tool
 			_use_optimizer = false
 
 	if prev_tool != _active_tool:

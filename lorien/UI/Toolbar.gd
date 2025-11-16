@@ -36,6 +36,7 @@ const BUTTON_NORMAL_COLOR = Color.WHITE
 @onready var _tool_btn_line: FlatTextureButton = $Console/Left/LineToolButton
 @onready var _tool_btn_eraser: FlatTextureButton = $Console/Left/EraserToolButton
 @onready var _tool_btn_selection: FlatTextureButton = $Console/Left/SelectionToolButton
+@onready var _tool_btn_text: FlatTextureButton = $Console/Left/TextToolButton
 @onready var _page_up_button: FlatTextureButton = $Console/Right/PageUpButton
 @onready var _page_down_button: FlatTextureButton = $Console/Right/PageDownButton
 
@@ -69,6 +70,7 @@ func _ready() -> void:
 	_tool_btn_line.pressed.connect(_on_line_tool_pressed)
 	_tool_btn_eraser.pressed.connect(_on_eraser_tool_pressed)
 	_tool_btn_selection.pressed.connect(_on_select_tool_pressed)
+	_tool_btn_text.pressed.connect(_on_text_tool_pressed)
 	_page_up_button.pressed.connect(func() -> void: _on_page_up_or_down_pressed(true))
 	_page_down_button.pressed.connect(func() -> void: _on_page_up_or_down_pressed(false))
 
@@ -82,6 +84,7 @@ func enable_tool(tool_type: Types.Tool) -> void:
 		Types.Tool.SELECT: btn = _tool_btn_selection
 		Types.Tool.RECTANGLE: btn = _tool_btn_rectangle
 		Types.Tool.CIRCLE: btn = _tool_btn_circle
+		Types.Tool.TEXT: btn = _tool_btn_text
 	
 	btn.toggle()
 	_change_active_tool_button(btn)
@@ -175,6 +178,10 @@ func _on_eraser_tool_pressed() -> void:
 func _on_select_tool_pressed() -> void:
 	_change_active_tool_button(_tool_btn_selection)
 	tool_changed.emit(Types.Tool.SELECT)
+
+func _on_text_tool_pressed() -> void:
+	_change_active_tool_button(_tool_btn_selection)
+	tool_changed.emit(Types.Tool.TEXT)
 
 # -------------------------------------------------------------------------------------------------
 func _change_active_tool_button(btn: TextureButton) -> void:
