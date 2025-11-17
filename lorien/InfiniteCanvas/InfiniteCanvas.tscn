@@ -17,8 +17,7 @@
 [ext_resource type="Script" path="res://InfiniteCanvas/DebugDraw.gd" id="15"]
 [ext_resource type="Script" path="res://InfiniteCanvas/Tools/TextTool.gd" id="16"]
 
-[sub_resource type="SystemFont" id="SystemFont_1ydca"]
-subpixel_positioning = 0
+[sub_resource type="SystemFont" id="SystemFont_w5f1g"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("10")
@@ -61,7 +60,7 @@ cursor_path = NodePath("../SubViewport/SelectionCursor")
 
 [node name="TextTool" type="Node" parent="."]
 script = ExtResource("16")
-font = SubResource("SystemFont_1ydca")
+font = SubResource("SystemFont_w5f1g")
 cursor_path = NodePath("../SubViewport/BrushCursor")
 
 [node name="SubViewport" type="SubViewport" parent="."]

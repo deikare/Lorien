@@ -94,7 +94,7 @@ func enable_tool(tool_type: Types.Tool) -> void:
 func set_brush_color(color: Color) -> void:
 	_color_button.get("theme_override_styles/normal").bg_color = color
 	var lum := color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722
-	var text_color := Color.BLACK if lum > 0.4 else Color.WHITE	
+	var text_color := Color.BLACK if lum > 0.4 else Color.WHITE
 	_color_button.set("theme_override_colors/font_color", text_color)
 	_color_button.set("theme_override_colors/font_hover_color", text_color)
 	_color_button.set("theme_override_colors/font_pressed_color", text_color)
@@ -162,7 +162,7 @@ func _on_rectangle_tool_pressed() -> void:
 # -------------------------------------------------------------------------------------------------
 func _on_circle_tool_pressed() -> void:
 	_change_active_tool_button(_tool_btn_circle)
-	tool_changed.emit(Types.Tool.CIRCLE)	
+	tool_changed.emit(Types.Tool.CIRCLE)
 	
 # -------------------------------------------------------------------------------------------------
 func _on_line_tool_pressed() -> void:
@@ -180,7 +180,7 @@ func _on_select_tool_pressed() -> void:
 	tool_changed.emit(Types.Tool.SELECT)
 
 func _on_text_tool_pressed() -> void:
-	_change_active_tool_button(_tool_btn_selection)
+	_change_active_tool_button(_tool_btn_text)
 	tool_changed.emit(Types.Tool.TEXT)
 
 # -------------------------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ func _update_undo_redo_buttons() -> void:
 	_undo_button.set_is_disabled(!active_project.undo_redo.has_undo())
 	_redo_button.set_is_disabled(!active_project.undo_redo.has_redo())
 
-func _on_page_up_or_down_pressed(up:bool) -> void:
+func _on_page_up_or_down_pressed(up: bool) -> void:
 	var _camera = get_node(camera_path) as PanZoomCamera
 	if _camera:
 		if up:

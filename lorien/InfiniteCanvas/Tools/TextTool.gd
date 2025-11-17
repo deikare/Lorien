@@ -11,7 +11,7 @@ var _editing_stroke: TextStroke = null
 
 func _ready() -> void:
 	# parent is InfiniteCanvas in your scene organization
-	_canvas = get_parent()
+	super ()
 
 	# Create an overlay TextEdit; parent it under the tool so it appears in scene
 	_editor = TextEdit.new()
@@ -35,12 +35,10 @@ func tool_event(event: InputEvent) -> void:
 		# world / canvas position for stroke storage
 		_start_pos = _canvas._camera.to_local(_canvas._viewport.get_mouse_position()) if _canvas else get_viewport().get_mouse_position()
 
-		# If double click, attempt to edit existing text stroke
-		if event.doubleclick:
-			var hit := _find_text_stroke_at_global(_canvas._viewport.get_mouse_position())
-			if hit:
-				_edit_existing_text(hit)
-				return
+		var hit := _find_text_stroke_at_global(_canvas._viewport.get_mouse_position())
+		if hit:
+			_edit_existing_text(hit)
+			return
 
 		# otherwise open editor to create new
 		_open_editor_at(_canvas._viewport.get_mouse_position())
@@ -58,7 +56,7 @@ func _open_editor_at(global_pos: Vector2) -> void:
 
 	_editor.visible = true
 	_editor.text = ""
-	_editor.resize(_editor.rect_min_size)
+	_editor.set_size(_editor.get_minimum_size())
 
 	# Place editor in global coordinates on top of viewport
 	# For SubViewportContainer, global coordinates of viewport mouse should work
@@ -71,7 +69,7 @@ func _edit_existing_text(stroke: TextStroke) -> void:
 	_editing_stroke = stroke
 	_editor.visible = true
 	_editor.text = stroke.text
-	_editor.resize(_editor.rect_min_size)
+	_editor.set_size(_editor.get_minimum_size())
 	# place near stroke (use stroke global position)
 	_editor.global_position = stroke.get_global_transform().origin
 	_editor.grab_focus()
@@ -84,7 +82,7 @@ func _close_editor(cancel: bool = false) -> void:
 
 func _on_editor_gui_input(ev: InputEvent) -> void:
 	# Ctrl/Cmd  Enter to commit
-	if ev is InputEventKey and ev.pressed and ev.keycode == KEY_ENTER and (ev.control or ev.meta):
+	if ev is InputEventKey and ev.pressed and ev.keycode == KEY_ENTER and (ev.ctrl_pressed or ev.meta_pressed):
 		_commit_editor()
 	# Esc handled in tool_event as well
 

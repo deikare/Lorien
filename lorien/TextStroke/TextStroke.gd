@@ -81,3 +81,18 @@ func clear() -> void:
 	text = ""
 	_label.text = ""
 	refresh()
+
+func contains_global_point(global_point: Vector2) -> bool:
+	if not is_instance_valid(_label):
+		return false
+
+	# Label.get_global_rect() is in global (screen/world) coordinates,
+	# so we can compare directly with the mouse global position.
+	var rect := _label.get_global_rect()
+
+	# For debugging, it’s useful to expand rect slightly:
+	# rect = rect.grow(2)
+	return rect.has_point(global_point)
+
+func translate_stroke(delta: Vector2) -> void:
+	position += delta
